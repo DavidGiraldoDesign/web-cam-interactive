@@ -134,19 +134,19 @@ function setup() {
       [your vida object].MIRROR_BOTH
     The default value is MIRROR_NONE.
   */
-  //myVida.mirror = myVida.MIRROR_HORIZONTAL; // uncomment if needed
+  myVida.mirror = myVida.MIRROR_HORIZONTAL; // uncomment if needed
   /*
     The value of the feedback for the procedure that calculates the background
     image in progressive mode. The value should be in the range from 0.0 to 1.0
     (float). Typical values of this variable are in the range between ~0.9 and
     ~0.98.
   */
-  myVida.imageFilterFeedback = 0.92;
+  myVida.imageFilterFeedback = 0.90;
   /*
     The value of the threshold for the procedure that calculates the threshold
     image. The value should be in the range from 0.0 to 1.0 (float).
   */
-  myVida.imageFilterThreshold = 0.15;
+  myVida.imageFilterThreshold = 0.10;
 
   frameRate(30); // set framerate
   pixelsDatan = (captureWidth * captureHeight) * 4;
@@ -173,6 +173,7 @@ function draw() {
     //image(myVida.thresholdImage, 0, 0);
 
     readPixelsValue(myVida.thresholdImage);
+    //readPixelsValue(myCapture);
 
   } else {
     /*
@@ -195,7 +196,7 @@ function readPixelsValue(imageToRead) {
 
       let index = x + (y * 320);
 
-      if (x % 5 == 0 && (y * 320) % 50 == 0) {
+      if (x % 3 == 0 && (y * 320) % 30 == 0) {
 
         let r = imageToRead.pixels[(index*4)];
         let g = imageToRead.pixels[(index*4) + 1];
@@ -204,7 +205,8 @@ function readPixelsValue(imageToRead) {
 
         noStroke();
         fill(r, g, b, a);
-        ellipse(x * 4, y * 4, 10, 10);
+        ellipse(x * 4, y * 4, 5, 5);
+        text('0',x*4,y*4);
       }
 
 
@@ -213,21 +215,7 @@ function readPixelsValue(imageToRead) {
 
   }
 
-
-
-
-  for (let index = 0; index < pixelsData; index = +4) {
-    let r = imageToRead.pixels[index];
-    let g = imageToRead.pixels[index + 1];
-    let b = imageToRead.pixels[index + 2];
-    let a = imageToRead.pixels[index + 3];
-  }
-
-
-
   imageToRead.updatePixels();
-
-
 
 }
 
